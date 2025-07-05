@@ -1,0 +1,239 @@
+Last login: Sat Jul  5 11:44:22 on ttys003
+The operation couldn’t be completed. Unable to locate a Java Runtime.
+Please visit http://www.java.com for information on installing Java.
+
+apple@Apples-MacBook-Pro ~ % ssh -i/Users/apple/Downloads/ec2-user.pem ec2-user@3.109.55.103
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+Last login: Sat Jul  5 06:44:45 2025 from 171.79.63.160
+[ec2-user@ip-172-31-8-41 ~]$ script week-01-output.txt
+Script started, output log file is 'week-01-output.txt'.
+[ec2-user@ip-172-31-8-41 ~]$ cat /etc/os-release
+NAME="Amazon Linux"
+VERSION="2023"
+ID="amzn"
+ID_LIKE="fedora"
+VERSION_ID="2023"
+PLATFORM_ID="platform:al2023"
+PRETTY_NAME="Amazon Linux 2023.7.20250623"
+ANSI_COLOR="0;33"
+CPE_NAME="cpe:2.3:o:amazon:amazon_linux:2023"
+HOME_URL="https://aws.amazon.com/linux/amazon-linux-2023/"
+DOCUMENTATION_URL="https://docs.aws.amazon.com/linux/"
+SUPPORT_URL="https://aws.amazon.com/premiumsupport/"
+BUG_REPORT_URL="https://github.com/amazonlinux/amazon-linux-2023"
+VENDOR_NAME="AWS"
+VENDOR_URL="https://aws.amazon.com/"
+SUPPORT_END="2029-06-30"
+[ec2-user@ip-172-31-8-41 ~]$ mkdir -p /home/devops_project
+mkdir: cannot create directory ‘/home/devops_project’: Permission denied
+[ec2-user@ip-172-31-8-41 ~]$ sudo !!
+sudo mkdir -p /home/devops_project
+[ec2-user@ip-172-31-8-41 ~]$ cd /home/devops_project
+[ec2-user@ip-172-31-8-41 devops_project]$ touch plan.txt network_report.txt
+touch: cannot touch 'plan.txt': Permission denied
+touch: cannot touch 'network_report.txt': Permission denied
+[ec2-user@ip-172-31-8-41 devops_project]$ sudo !!
+sudo touch plan.txt network_report.txt
+[ec2-user@ip-172-31-8-41 devops_project]$ cp plan.txt /tmp/
+[ec2-user@ip-172-31-8-41 devops_project]$ cd ..
+[ec2-user@ip-172-31-8-41 home]$ cd /tmp
+[ec2-user@ip-172-31-8-41 tmp]$ ls
+plan.txt
+systemd-private-e03077c1b61f484bb00b9ada10a4fad9-chronyd.service-8v6QDJ
+systemd-private-e03077c1b61f484bb00b9ada10a4fad9-dbus-broker.service-7OJXOp
+systemd-private-e03077c1b61f484bb00b9ada10a4fad9-policy-routes@enX0.service-5ERnty
+systemd-private-e03077c1b61f484bb00b9ada10a4fad9-systemd-logind.service-FtqlwW
+systemd-private-e03077c1b61f484bb00b9ada10a4fad9-systemd-resolved.service-aHVl2b
+[ec2-user@ip-172-31-8-41 tmp]$ cd ..
+[ec2-user@ip-172-31-8-41 /]$ cd /home/devops_project
+[ec2-user@ip-172-31-8-41 devops_project]$ ls
+network_report.txt  plan.txt
+[ec2-user@ip-172-31-8-41 devops_project]$ rm plan.txt
+rm: remove write-protected regular empty file 'plan.txt'? yes
+rm: cannot remove 'plan.txt': Permission denied
+[ec2-user@ip-172-31-8-41 devops_project]$ sudo !!
+sudo rm plan.txt
+[ec2-user@ip-172-31-8-41 devops_project]$ ls
+network_report.txt
+[ec2-user@ip-172-31-8-41 devops_project]$ sudo useradd devstudent
+[ec2-user@ip-172-31-8-41 devops_project]$ sudo groupadd devops_team
+[ec2-user@ip-172-31-8-41 devops_project]$ id devstudent
+uid=1001(devstudent) gid=1001(devstudent) groups=1001(devstudent)
+[ec2-user@ip-172-31-8-41 devops_project]$ cat /etc/passwd | grep devstudent
+devstudent:x:1001:1001::/home/devstudent:/bin/bash
+[ec2-user@ip-172-31-8-41 devops_project]$ sudo usermod -aG devops_team devstudent
+[ec2-user@ip-172-31-8-41 ~]$ grep devops_team /etc/group
+devops_team:x:1002:devstudent
+[ec2-user@ip-172-31-8-41 ~]$ touch secret.txt
+[ec2-user@ip-172-31-8-41 ~]$ sudo chown devstudent:devstudent secret.txt
+[ec2-user@ip-172-31-8-41 ~]$ chmod 600 secret.txt
+chmod: changing permissions of 'secret.txt': Operation not permitted
+[ec2-user@ip-172-31-8-41 ~]$ sudo !!
+sudo chmod 600 secret.txt
+[ec2-user@ip-172-31-8-41 ~]$ ls -l secret.txt
+-rw-------. 1 devstudent devstudent 0 Jul  5 07:09 secret.txt
+[ec2-user@ip-172-31-8-41 ~]$ echo "This is a dummy file" >dummy.log
+[ec2-user@ip-172-31-8-41 ~]$ gzip dummy.log
+[ec2-user@ip-172-31-8-41 ~]$ ls -lh dummy.log
+ls: cannot access 'dummy.log': No such file or directory
+[ec2-user@ip-172-31-8-41 ~]$ ls -lh dummy.log.gz
+-rw-r--r--. 1 ec2-user ec2-user 49 Jul  5 07:13 dummy.log.gz
+[ec2-user@ip-172-31-8-41 ~]$ tar -cvf dummy.tar dummy.log.gz
+dummy.log.gz
+[ec2-user@ip-172-31-8-41 ~]$ ls -lh dummy.tar
+-rw-r--r--. 1 ec2-user ec2-user 10K Jul  5 07:15 dummy.tar
+[ec2-user@ip-172-31-8-41 ~]$ tar -xvf dummy.tar
+dummy.log.gz
+[ec2-user@ip-172-31-8-41 ~]$ gunzip dummy.log.gz
+[ec2-user@ip-172-31-8-41 ~]$ ls -l
+total 28
+-rw-r--r--. 1 ec2-user   ec2-user      21 Jul  5 07:13 dummy.log
+-rw-r--r--. 1 ec2-user   ec2-user   10240 Jul  5 07:15 dummy.tar
+-rw-------. 1 devstudent devstudent     0 Jul  5 07:09 secret.txt
+-rw-r--r--. 1 ec2-user   ec2-user     888 Jul  5 06:46 typescript
+-rw-r--r--. 1 ec2-user   ec2-user    4096 Jul  5 06:56 week-01-output.txt
+-rw-r--r--. 1 ec2-user   ec2-user     775 Jul  5 06:46 week_01_output.txt
+[ec2-user@ip-172-31-8-41 ~]$ cat dummy.log
+This is a dummy file
+[ec2-user@ip-172-31-8-41 ~]$ sudo yum update
+Amazon Linux 2023 Kernel Livepatch repository   161 kB/s |  17 kB     00:00    
+Dependencies resolved.
+Nothing to do.
+Complete!
+[ec2-user@ip-172-31-8-41 ~]$ sudo yum install curl htop net-tools -y
+Last metadata expiration check: 0:00:24 ago on Sat Jul  5 07:21:38 2025.
+Package net-tools-2.0-0.59.20160912git.amzn2023.0.3.x86_64 is already installed.
+[ec2-user@ip-172-31-8-41 ~]$ which curl
+/usr/bin/curl
+[ec2-user@ip-172-31-8-41 ~]$ curl --version
+curl 8.11.1 (x86_64-amazon-linux-gnu) libcurl/8.11.1 OpenSSL/3.2.2 zlib/1.2.11 libidn2/2.3.2 libpsl/0.21.5 nghttp2/1.59.0
+Release-Date: 2024-12-11
+Protocols: file ftp ftps http https ipfs ipns
+Features: alt-svc AsynchDNS GSS-API HSTS HTTP2 HTTPS-proxy IDN IPv6 Kerberos Largefile libz PSL SPNEGO SSL threadsafe UnixSockets
+[ec2-user@ip-172-31-8-41 ~]$ which netstat
+/usr/bin/netstat
+[ec2-user@ip-172-31-8-41 ~]$ netstat --version
+net-tools 2.10-alpha
+Fred Baumgarten, Alan Cox, Bernd Eckenfels, Phil Blundell, Tuan Hoang, Brian Micek and others
++NEW_ADDRT +RTF_IRTT +RTF_REJECT +FW_MASQUERADE +I18N +SELINUX
+AF: (inet) +UNIX +INET +INET6 +IPX +AX25 +NETROM +X25 +ATALK -ECONET +ROSE +BLUETOOTH
+HW:  +ETHER +ARC +SLIP +PPP +TUNNEL -TR +AX25 +NETROM +X25 +FR +ROSE +ASH +SIT +FDDI +HIPPI +HDLC/LAPB +EUI64 
+[ec2-user@ip-172-31-8-41 ~]$ sudo yum install htop -y
+Last metadata expiration check: 0:02:58 ago on Sat Jul  5 07:21:38 2025.
+Dependencies resolved.
+================================================================================
+ Package    Architecture Version                        Repository         Size
+================================================================================
+Installing:
+ htop       x86_64       3.2.1-87.amzn2023.0.3          amazonlinux       183 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 183 k
+Installed size: 432 k
+Downloading Packages:
+htop-3.2.1-87.amzn2023.0.3.x86_64.rpm           1.8 MB/s | 183 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           1.5 MB/s | 183 kB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : htop-3.2.1-87.amzn2023.0.3.x86_64                      1/1 
+  Running scriptlet: htop-3.2.1-87.amzn2023.0.3.x86_64                      1/1 
+  Verifying        : htop-3.2.1-87.amzn2023.0.3.x86_64                      1/1 
+
+Installed:
+  htop-3.2.1-87.amzn2023.0.3.x86_64                                             
+
+Complete!
+
+[ec2-user@ip-172-31-8-41 ~]$ htop --version
+htop 3.2.1
+
+[ec2-user@ip-172-31-8-41 ~]$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enX0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9001 qdisc fq_codel state UP group default qlen 1000
+    link/ether 0a:d7:04:81:b8:07 brd ff:ff:ff:ff:ff:ff
+    altname eni-0ea30c52e9b91ed56
+    altname device-number-0.0
+    inet 172.31.8.41/20 metric 512 brd 172.31.15.255 scope global dynamic enX0
+       valid_lft 2610sec preferred_lft 2610sec
+    inet6 fe80::8d7:4ff:fe81:b807/64 scope link proto kernel_ll 
+       valid_lft forever preferred_lft forever
+[ec2-user@ip-172-31-8-41 ~]$ ifconfig
+enX0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9001
+        inet 172.31.8.41  netmask 255.255.240.0  broadcast 172.31.15.255
+        inet6 fe80::8d7:4ff:fe81:b807  prefixlen 64  scopeid 0x20<link>
+        ether 0a:d7:04:81:b8:07  txqueuelen 1000  (Ethernet)
+        RX packets 14767  bytes 44766773 (42.6 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 6626  bytes 673949 (658.1 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 12  bytes 1020 (1020.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 12  bytes 1020 (1020.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+[ec2-user@ip-172-31-8-41 ~]$ ping google.com -c 4
+PING google.com (142.250.183.46) 56(84) bytes of data.
+64 bytes from bom12s11-in-f14.1e100.net (142.250.183.46): icmp_seq=1 ttl=114 time=1.63 ms
+64 bytes from bom12s11-in-f14.1e100.net (142.250.183.46): icmp_seq=2 ttl=114 time=1.69 ms
+64 bytes from bom12s11-in-f14.1e100.net (142.250.183.46): icmp_seq=3 ttl=114 time=2.09 ms
+64 bytes from bom12s11-in-f14.1e100.net (142.250.183.46): icmp_seq=4 ttl=114 time=1.90 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 1.634/1.829/2.086/0.178 ms
+[ec2-user@ip-172-31-8-41 ~]$ traceroute google.com
+traceroute to google.com (142.251.42.46), 30 hops max, 60 byte packets
+ 1  240.2.196.12 (240.2.196.12)  19.363 ms  19.340 ms 240.2.196.15 (240.2.196.15)  19.321 ms
+ 2  242.6.252.7 (242.6.252.7)  19.276 ms 242.6.253.131 (242.6.253.131)  19.254 ms 242.6.253.135 (242.6.253.135)  19.248 ms
+ 3  * * *
+ 4  99.82.178.53 (99.82.178.53)  19.122 ms *  19.072 ms
+ 5  * * *
+ 6  142.250.235.8 (142.250.235.8)  18.971 ms 192.178.86.240 (192.178.86.240)  13.805 ms 142.251.77.96 (142.251.77.96)  13.767 ms
+ 7  bom12s20-in-f14.1e100.net (142.251.42.46)  13.727 ms 142.251.69.43 (142.251.69.43)  13.708 ms 142.251.77.68 (142.251.77.68)  13.668 ms
+[ec2-user@ip-172-31-8-41 ~]$ nslookup google.com
+Server:		172.31.0.2
+Address:	172.31.0.2#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 142.251.42.46
+Name:	google.com
+Address: 2404:6800:4009:830::200e
+
+[ec2-user@ip-172-31-8-41 ~]$ netstat -tuln
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+udp        0      0 127.0.0.1:323           0.0.0.0:*                          
+udp        0      0 172.31.8.41:68          0.0.0.0:*                          
+udp6       0      0 ::1:323                 :::*                               
+udp6       0      0 fe80::8d7:4ff:fe81::546 :::*                               
